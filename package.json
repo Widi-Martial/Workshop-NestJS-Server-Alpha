@@ -1,0 +1,12 @@
+{
+  "name": "Server Alpha",
+  "version": "1.0.0",
+  "description": "discover nestJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "widi Martail",
+  "license": "ISC"
+}
