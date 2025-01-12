@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { Request } from 'express';
 import * as usersDto from './users.dto';
 
@@ -11,19 +20,26 @@ export class UsersController {
     console.log(request);
     return [];
   }
-}
 
-@Controller('me')
-export class UsersMeController {
-  @Get()
+  @Get(':userId')
+  async findOneUser(
+    @Param() userId: usersDto.UserIdDto,
+  ): Promise<usersDto.FindOneUserDto> {
+    console.log(userId);
+    return;
+  }
+
+  @Get('me')
   async findMe(@Req() request: Request): Promise<usersDto.MeDto[]> {
     console.log(request);
     return [];
   }
 
+  // move in single controller
   @Post('register')
   async createMe(@Body() createMeDto: usersDto.CreateMeDto) {
     console.log(createMeDto);
+    return 'this action create user';
   }
 
   @Patch('me')
@@ -32,5 +48,20 @@ export class UsersMeController {
     @Body() updateMeDto: usersDto.UpdateMeDto,
   ) {
     console.log(updateMeDto, request);
+    return 'this action update user';
+  }
+
+  @Delete('me')
+  async deleteMe(@Req() request: Request) {
+    console.log(request);
+    return 'this action delete user';
+  }
+
+  @Get('me/suggestions')
+  async findSuggestions(
+    @Req() request: Request,
+  ): Promise<usersDto.SuggestionDto[]> {
+    console.log(request);
+    return [];
   }
 }

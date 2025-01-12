@@ -35,5 +35,5 @@ $ pnpm run test:cov
 ```
 
 ## OnGoing
-- Controller (sub-domain-routing)
+- Controller (full resource samble)
 https://docs.nestjs.com/controllers

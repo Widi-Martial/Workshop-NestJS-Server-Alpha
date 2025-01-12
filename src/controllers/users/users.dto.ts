@@ -2,14 +2,14 @@ import {
   IsString,
   IsNumber,
   IsNotEmpty,
-  Min,
   Max,
   IsEmail,
   IsArray,
   ArrayNotEmpty,
   Contains,
-  ValidateIf,
-  Matches
+  IsDate,
+  Min,
+  IsInt,
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
@@ -44,7 +44,7 @@ export class MeDto {
       name: string;
       users_hobbies: {
         created_at: string;
-        updated_at: null;
+        updated_at: string;
         user_id: number;
         hobby_id: number;
       };
@@ -61,6 +61,43 @@ export class FindUsersDto {
   age: number;
 }
 
+class Hobby {
+  id: number;
+  name: string;
+  users_hobbies: {
+    created_at: string;
+    updated_at: string;
+    user_id: number;
+    hobby_id: number;
+  };
+}
+
+class Event {
+  id: number;
+  name: string;
+  location: string;
+  picture: string;
+  time: string;
+  users_events: {
+    created_at: string;
+    updated_at: string;
+    user_id: number;
+    event_id: number;
+  }
+}
+
+export class FindOneUserDto {
+  id: number;
+  name: string;
+  birth_date: string;
+  age: number;
+  description: string;
+  gender: string;
+  picture: string;
+  hobbies: Hobby[];
+  events: Event[];
+}
+
 export class CreateMeDto {
   @IsNotEmpty()
   @IsString()
@@ -68,6 +105,7 @@ export class CreateMeDto {
   name: string;
 
   @IsNotEmpty()
+  @IsDate()
   birth_date: string;
 
   @IsString()
@@ -81,21 +119,45 @@ export class CreateMeDto {
   @Contains('other')
   gender: string;
 
+  @IsNotEmpty()
+  @IsString()
   @IsEmail()
   email: string;
 
-  @IsString()
+  // after:check with zod
   @IsNotEmpty()
+  @IsString()
+  @Min(12)
+  @Max(255)
   password: string;
 
-  @IsString()
+  // after:check with zod
   @IsNotEmpty()
+  @IsString()
+  @Min(12)
+  @Max(255)
   repeat_password: string;
 
   @IsArray()
   @ArrayNotEmpty()
   @IsNumber({}, { each: true })
+  @Min(1, { each: true })
   hobbies: number[];
 }
 
 export class UpdateMeDto extends PartialType(CreateMeDto) {}
+
+export class UserIdDto {
+  @IsInt()
+  @Min(1)
+  userId: number;
+}
+
+export class SuggestionDto {
+  id: number;
+  name: string;
+  gender: string;
+  birth_date: string;
+  age: number;
+  picture: string;
+}

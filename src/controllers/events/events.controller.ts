@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { EventDto } from './events.dto';
+import { Controller, Delete, Get, Param, Put, Req } from '@nestjs/common';
+import { EventDto, EventIdDto } from './events.dto';
 
 @Controller('events')
 export class EventsController {
@@ -11,6 +11,24 @@ export class EventsController {
   @Get(':eventId')
   async findOneEvent(@Param('eventId') eventId: number): Promise<EventDto> {
     console.log(eventId);
-    return;
+    return null;
+  }
+
+  @Put(':eventId/register')
+  async addUserToEvent(
+    @Param('eventId') eventId: EventIdDto,
+    @Req() request: Request,
+  ) {
+    console.log(eventId, request);
+    return 'this action register user';
+  }
+
+  @Delete(':eventId/unregister')
+  async deleteUserToEvent(
+    @Param('eventId') eventId: EventIdDto,
+    @Req() request: Request,
+  ) {
+    console.log(eventId, request);
+    return 'this action unregister user';
   }
 }

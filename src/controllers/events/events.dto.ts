@@ -1,3 +1,5 @@
+import { IsInt, Min } from 'class-validator';
+
 export class EventDto {
   id: number;
   name: string;
@@ -7,7 +9,7 @@ export class EventDto {
   picture_id: string;
   date: string;
   time: string;
-  admin_id: null;
+  admin_id: string;
   created_at: string;
   updated_at: string;
   hobbies: [
@@ -15,7 +17,7 @@ export class EventDto {
       id: number;
       name: string;
       created_at: string;
-      updated_at: null;
+      updated_at: string;
       events_hobbies: {
         created_at: string;
         updated_at: string;
@@ -24,4 +26,10 @@ export class EventDto {
       };
     },
   ];
+}
+
+export class EventIdDto {
+  @IsInt()
+  @Min(1)
+  userId: number;
 }

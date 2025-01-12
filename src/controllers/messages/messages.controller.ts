@@ -23,6 +23,7 @@ export class MessagesController {
     @Body() sendMessageDto: messageDto.SendMessageDto,
   ) {
     console.log(request, sendMessageDto);
+    return 'this action send a message';
   }
 
   @Put()
@@ -31,5 +32,6 @@ export class MessagesController {
     @Body() contactId: messageDto.PutReadDto,
   ) {
     console.log(request, contactId);
+    return 'this action put message to read';
   }
 }

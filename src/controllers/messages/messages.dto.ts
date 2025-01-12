@@ -37,12 +37,12 @@ export class FindContactsDto {
   description: string;
   gender: string;
   picture: string;
-  picture_id: null;
+  picture_id: string;
   email: string;
   password: string;
   status: string;
   created_at: string;
-  updated_at: null;
+  updated_at: string;
   messages: [
     {
       id: number;
