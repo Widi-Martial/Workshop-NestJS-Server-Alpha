@@ -35,5 +35,4 @@ $ pnpm run test:cov
 ```
 
 ## OnGoing
-- Controller (full resource sample)
-https://docs.nestjs.com/controllers
+- Providers

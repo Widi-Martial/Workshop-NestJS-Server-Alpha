@@ -6,6 +6,7 @@ import { MessagesController } from './controllers/messages/messages.controller';
 import { UsersController } from './controllers/users/users.controller';
 import { AdminController } from './controllers/admin/admin.controller';
 import { AccountController } from './controllers/account/account.controller';
+import { UsersService } from './controllers/users/users-service/users.service';
 
 @Module({
   imports: [],
@@ -18,5 +19,6 @@ import { AccountController } from './controllers/account/account.controller';
     AdminController,
     AccountController,
   ],
+  providers: [UsersService],
 })
 export class AppModule {}

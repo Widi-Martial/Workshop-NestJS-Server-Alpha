@@ -1,5 +1,6 @@
 import { Controller, Delete, Get, Param, Put, Headers } from '@nestjs/common';
-import { EventDto, EventIdDto } from './events.dto';
+import { EventIdDto } from './events.dto';
+import { EventDto } from './event.interface';
 
 @Controller('events')
 export class EventsController {

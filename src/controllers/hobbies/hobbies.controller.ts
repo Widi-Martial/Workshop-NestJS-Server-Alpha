@@ -1,10 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { HobbyDto } from './hobbies.dto';
+import { Hobby } from './hobby.interface';
 
 @Controller('hobbies')
 export class HobbiesController {
   @Get()
-  async findAllHobbies(): Promise<HobbyDto[]> {
+  async findAllHobbies(): Promise<Hobby[]> {
     return [];
   }
 }

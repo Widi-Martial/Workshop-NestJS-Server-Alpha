@@ -1,12 +1,13 @@
 import { Body, Controller, Get, Post, Put, Headers } from '@nestjs/common';
 import * as messageDto from './messages.dto';
+import * as messageInterface from './message.interface';
 
 @Controller('messages')
 export class MessagesController {
   @Get()
   async findAllMessages(
     @Headers('authorization') authorization: string,
-  ): Promise<messageDto.FindMessagesDto[]> {
+  ): Promise<messageInterface.Message[]> {
     console.log(authorization);
     return [];
   }
@@ -14,7 +15,7 @@ export class MessagesController {
   @Get('contacts')
   async findAllContacts(
     @Headers('authorization') authorization: string,
-  ): Promise<messageDto.FindContactsDto[]> {
+  ): Promise<messageInterface.Contact[]> {
     console.log(authorization);
     return [];
   }

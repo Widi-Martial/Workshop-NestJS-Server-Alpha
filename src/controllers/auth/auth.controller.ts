@@ -5,7 +5,7 @@ import { LoginDto } from './auth.dto';
 export class LoginController {
   async loginUser(@Body() body: LoginDto) {
     console.log(body);
-    return 'this action create an account'
+    return 'this action create an account';
   }
 }
 
