@@ -4,8 +4,8 @@ import { HobbiesController } from './controllers/hobbies/hobbies.controller';
 import { LoginController } from './controllers/auth/auth.controller';
 import { MessagesController } from './controllers/messages/messages.controller';
 import { UsersController } from './controllers/users/users.controller';
-import { AdminController } from './admin/admin.controller';
-import { AccountController } from './account/account.controller';
+import { AdminController } from './controllers/admin/admin.controller';
+import { AccountController } from './controllers/account/account.controller';
 
 @Module({
   imports: [],

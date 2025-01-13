@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, Put, Req } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Put, Headers } from '@nestjs/common';
 import { EventDto, EventIdDto } from './events.dto';
 
 @Controller('events')
@@ -17,18 +17,18 @@ export class EventsController {
   @Put(':eventId/register')
   async addUserToEvent(
     @Param('eventId') eventId: EventIdDto,
-    @Req() request: Request,
+    @Headers('authorization') authorization: string,
   ) {
-    console.log(eventId, request);
+    console.log(eventId, authorization);
     return 'this action register user';
   }
 
   @Delete(':eventId/unregister')
   async deleteUserToEvent(
     @Param('eventId') eventId: EventIdDto,
-    @Req() request: Request,
+    @Headers('authorization') authorization: string,
   ) {
-    console.log(eventId, request);
+    console.log(eventId, authorization);
     return 'this action unregister user';
   }
 }

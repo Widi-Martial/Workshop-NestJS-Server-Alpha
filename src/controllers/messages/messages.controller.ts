@@ -1,37 +1,39 @@
-import { Body, Controller, Get, Post, Put, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Headers } from '@nestjs/common';
 import * as messageDto from './messages.dto';
-import { Request } from 'express';
 
 @Controller('messages')
 export class MessagesController {
   @Get()
   async findAllMessages(
-    @Req() request: Request,
+    @Headers('authorization') authorization: string,
   ): Promise<messageDto.FindMessagesDto[]> {
-    console.log(request);
+    console.log(authorization);
     return [];
   }
 
   @Get('contacts')
-  async findAllContacts(): Promise<messageDto.FindContactsDto[]> {
+  async findAllContacts(
+    @Headers('authorization') authorization: string,
+  ): Promise<messageDto.FindContactsDto[]> {
+    console.log(authorization);
     return [];
   }
 
   @Post()
   async sendMessage(
-    @Req() request: Request,
+    @Headers('authorization') authorization: string,
     @Body() sendMessageDto: messageDto.SendMessageDto,
   ) {
-    console.log(request, sendMessageDto);
+    console.log(authorization, sendMessageDto);
     return 'this action send a message';
   }
 
   @Put()
   async putMessageToRead(
-    @Req() request: Request,
+    @Headers('authorization') authorization: string,
     @Body() contactId: messageDto.PutReadDto,
   ) {
-    console.log(request, contactId);
+    console.log(authorization, contactId);
     return 'this action put message to read';
   }
 }
