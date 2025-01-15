@@ -35,4 +35,4 @@ $ pnpm run test:cov
 ```
 
 ## OnGoing
-- Providers
+- Modules
