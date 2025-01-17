@@ -36,9 +36,9 @@ export class UsersController {
   @Get('me/suggestions')
   async findSuggestions(
     @Headers('authorization') authorization: string,
-  ): Promise<userInterface.Suggestion[]> {
+  ) /*: Promise<userInterface.Suggestion[]>*/ {
     console.log(authorization);
-    return [];
+    return this.usersService.getSuggestions();
   }
 
   @Get(':userId')

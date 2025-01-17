@@ -1,0 +1,55 @@
+src/
+├── app.module.ts
+├── app.service.ts
+├── main.ts
+├── common/                  # Contient les utilitaires communs
+│   ├── decorators/
+│   ├── filters/
+│   ├── guards/
+│   ├── interceptors/
+│   ├── interfaces/          # Interfaces partagées (si nécessaires)
+│   └── utils/               # Fonctions utilitaires
+├── modules/                 # Modules principaux
+│   ├── account/             # Module "Account"
+│   │   ├── account.controller.ts
+│   │   ├── account.service.ts
+│   │   ├── account.module.ts
+│   │   ├── account.dto.ts
+│   │   └── account.interface.ts
+│   ├── auth/                # Module "Auth"
+│   │   ├── auth.controller.ts
+│   │   ├── auth.service.ts
+│   │   ├── auth.module.ts
+│   │   ├── auth.dto.ts
+│   │   └── auth.interface.ts
+│   ├── events/              # Module "Events"
+│   │   ├── events.controller.ts
+│   │   ├── events.service.ts
+│   │   ├── events.module.ts
+│   │   ├── events.dto.ts
+│   │   └── event.interface.ts
+│   ├── hobbies/             # Module "Hobbies"
+│   │   ├── hobbies.controller.ts
+│   │   ├── hobbies.service.ts
+│   │   ├── hobbies.module.ts
+│   │   ├── hobbies.dto.ts
+│   │   └── hobby.interface.ts
+│   ├── messages/            # Module "Messages"
+│   │   ├── messages.controller.ts
+│   │   ├── messages.service.ts
+│   │   ├── messages.module.ts
+│   │   ├── messages.dto.ts
+│   │   └── message.interface.ts
+│   └── users/               # Module "Users"
+│       ├── users.controller.ts
+│       ├── users.service.ts
+│       ├── users.module.ts
+│       ├── users.dto.ts
+│       └── user.interface.ts
+├── db-client/               # Contient la logique liée à la base de données
+│   ├── database.module.ts
+│   ├── database.service.ts
+│   └── prisma-client.ts
+└── tests/                   # Tests unitaires et e2e (optionnel)
+    ├── e2e/
+    └── unit/
