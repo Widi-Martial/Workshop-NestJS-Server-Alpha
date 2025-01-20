@@ -47,8 +47,8 @@ src/
 │       ├── users.dto.ts
 │       └── user.interface.ts
 ├── db-client/               # Contient la logique liée à la base de données
-│   ├── database.module.ts
-│   ├── database.service.ts
+│   ├── db.module.ts
+│   ├── db.service.ts
 │   └── prisma-client.ts
 └── tests/                   # Tests unitaires et e2e (optionnel)
     ├── e2e/

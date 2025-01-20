@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { EventsController } from './controllers/events/events.controller';
-import { HobbiesController } from './controllers/hobbies/hobbies.controller';
-import { LoginController } from './controllers/auth/auth.controller';
-import { MessagesController } from './controllers/messages/messages.controller';
-import { AdminController } from './controllers/admin/admin.controller';
-import { AccountController } from './controllers/account/account.controller';
-import { UsersModule } from './controllers/users/users.module';
+import { EventsController } from './module/events/events.controller';
+import { HobbiesController } from './module/hobbies/hobbies.controller';
+import { LoginController } from './module/auth/auth.controller';
+import { MessagesController } from './module/messages/messages.controller';
+import { AdminController } from './module/admin/admin.controller';
+import { AccountController } from './module/account/account.controller';
+import { UsersModule } from './module/users/users.module';
+import { DbModule } from './module/database/db.module';
 
 @Module({
-  imports: [UsersModule],
+  imports: [UsersModule, DbModule],
   controllers: [
     EventsController,
     HobbiesController,
