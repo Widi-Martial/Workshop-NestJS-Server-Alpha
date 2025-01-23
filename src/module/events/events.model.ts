@@ -14,7 +14,7 @@ import { User } from '../users/users.model';
 import { EventHobby } from '../events-hobbies/events_hobbies.model';
 import { Hobby } from '../hobbies/hobbies.model';
 
-@Table
+@Table({ tableName: 'events' })
 export class Event extends Model {
   @BelongsToMany(() => User, () => UserEvent)
   users: User[];

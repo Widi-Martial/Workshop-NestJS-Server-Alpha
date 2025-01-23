@@ -15,7 +15,7 @@ import { UserHobby } from '../users-hobbies/users_hobbies.model';
 import { Event } from '../events/events.model';
 import { UserEvent } from '../users-events/users_events.model';
 
-@Table
+@Table({ tableName: 'users' })
 export class User extends Model {
   @HasMany(() => Message, 'sender_id')
   sender: Message[];

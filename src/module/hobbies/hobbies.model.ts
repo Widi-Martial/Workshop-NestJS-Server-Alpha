@@ -12,7 +12,7 @@ import { User } from '../users/users.model';
 import { Event } from '../events/events.model';
 import { EventHobby } from '../events-hobbies/events_hobbies.model';
 
-@Table
+@Table({ tableName: 'hobbies' })
 export class Hobby extends Model {
   @BelongsToMany(() => User, () => UserHobby)
   users: User[];

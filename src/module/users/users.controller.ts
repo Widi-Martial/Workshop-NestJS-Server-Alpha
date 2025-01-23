@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Headers } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Headers,
+  ParseIntPipe,
+} from '@nestjs/common';
 import * as usersDto from './users.dto';
 import * as userInterface from './user.interface';
 import { UsersService } from './users-service/users.service';
@@ -13,7 +21,7 @@ export class UsersController {
   ): Promise<userInterface.Users[]> {
     console.log(authorization);
     console.log('this action find all users');
-    return this.usersService.getUsers();
+    return await this.usersService.getUsers();
   }
 
   @Get('me')
@@ -21,7 +29,7 @@ export class UsersController {
     @Headers('authorization') authorization: string,
   ): Promise<userInterface.Profil[]> {
     console.log(authorization);
-    return [];
+    return await this.usersService.getUserProfile(2);
   }
 
   @Patch('me')
@@ -44,9 +52,10 @@ export class UsersController {
   @Get(':userId')
   async findOneUser(
     @Headers('authorization') authorization: string,
-    @Param() userId: usersDto.UserIdDto,
-  ): Promise<userInterface.User> {
+    @Param('userId', ParseIntPipe) userId: number,
+  ): Promise<userInterface.Users> {
     console.log(userId, authorization);
-    return;
+    console.log('this action find one user...');
+    return await this.usersService.getUserById(userId);
   }
 }

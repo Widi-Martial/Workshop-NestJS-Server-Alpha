@@ -10,7 +10,7 @@ import {
 import { User } from '../users/users.model';
 import { Hobby } from '../hobbies/hobbies.model';
 
-@Table
+@Table({ tableName: 'users_hobbies' })
 export class UserHobby extends Model {
   @ForeignKey(() => User)
   @Column({

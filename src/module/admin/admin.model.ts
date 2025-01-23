@@ -10,7 +10,7 @@ import {
 } from 'sequelize-typescript';
 import { Event } from '../events/events.model';
 
-@Table
+@Table({ tableName: 'administrators' })
 export class Administrator extends Model {
   @HasMany(() => Event, 'admin_id')
   events: Event[];

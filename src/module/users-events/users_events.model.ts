@@ -10,7 +10,7 @@ import {
 import { User } from '../users/users.model';
 import { Event } from '../events/events.model';
 
-@Table
+@Table({ tableName: 'users_events' })
 export class UserEvent extends Model {
   @ForeignKey(() => User)
   @Column({

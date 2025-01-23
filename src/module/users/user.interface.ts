@@ -64,11 +64,17 @@ export interface Profil {
 }
 
 export interface Users {
-  id: number;
   name: string;
   birth_date: string;
+  description: string;
+  gender: string;
   picture: string;
-  age: number;
+  picture_id: string;
+  email: string;
+  password: string;
+  status: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface Suggestion {
