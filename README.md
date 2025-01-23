@@ -35,4 +35,4 @@ $ pnpm run test:cov
 ```
 
 ## OnGoing
-- Modules (Dependency injection)
+- Modules (Dynamic modules)
