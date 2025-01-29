@@ -24,7 +24,7 @@ interface Event {
 }
 
 export interface Profil {
-  id: number;
+  id?: number;
   name: string;
   birth_date: string;
   description: string;
@@ -32,7 +32,7 @@ export interface Profil {
   picture: string;
   email: string;
   status: string;
-  events: [
+  /*events: [
     {
       id: number;
       name: string;
@@ -40,7 +40,7 @@ export interface Profil {
       picture: string;
       date: string;
       time: string;
-      users_events: {
+      UserEvent: {
         created_at: string;
         updated_at: string;
         user_id: number;
@@ -52,15 +52,14 @@ export interface Profil {
     {
       id: number;
       name: string;
-      users_hobbies: {
+      UserHobby: {
         created_at: string;
         updated_at: string;
         user_id: number;
         hobby_id: number;
       };
     },
-  ];
-  age: number;
+  ];*/
 }
 
 export interface Users {

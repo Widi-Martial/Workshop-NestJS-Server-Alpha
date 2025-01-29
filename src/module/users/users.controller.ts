@@ -27,7 +27,7 @@ export class UsersController {
   @Get('me')
   async findUserProfil(
     @Headers('authorization') authorization: string,
-  ): Promise<userInterface.Profil[]> {
+  ): Promise<userInterface.Profil> {
     console.log(authorization);
     return await this.usersService.getUserProfile(2);
   }
@@ -37,8 +37,7 @@ export class UsersController {
     @Headers('authorization') authorization: string,
     @Body() updateUserDto: usersDto.UpdateMeDto,
   ) {
-    console.log(updateUserDto, authorization);
-    return 'this action update user';
+    return await this.usersService.updateProfile(2, updateUserDto);
   }
 
   @Get('me/suggestions')

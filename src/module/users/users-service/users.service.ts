@@ -1,16 +1,15 @@
-import { UserHobbiesService } from './user-hobbies.service';
 import { Injectable } from '@nestjs/common';
 //import { DbService } from '../../database/db.service';
-import { Users } from '../user.interface';
+import { Profil, Users } from '../user.interface';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users.model';
+import { UpdateMeDto } from '../users.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
     private readonly userModel: typeof User,
-    private readonly userHobbiesService: UserHobbiesService,
     //private readonly dbService: DbService,
   ) {}
 
@@ -24,7 +23,7 @@ export class UsersService {
     return await this.userModel.findByPk(userId);
   }
 
-  async getUserProfile(userId: number): Promise<any> {
+  async getUserProfile(userId: number): Promise<Profil> {
     return await this.userModel.findByPk(userId, {
       attributes: [
         'id',
@@ -36,10 +35,30 @@ export class UsersService {
         'email',
         'status',
       ],
+      include: [
+        {
+          association: 'events',
+          attributes: ['id', 'name', 'location', 'picture', 'date', 'time'],
+        },
+        {
+          association: 'hobbies',
+          attributes: { exclude: ['created_at', 'updated_at'] },
+        },
+      ],
     });
   }
 
-  async getSuggestions(): Promise<string> {
-    return this.userHobbiesService.getHobbies();
+  async getSuggestions(): Promise<any> {
+    return 'suggestions';
+  }
+
+  async updateProfile(userId: number, data: UpdateMeDto): Promise<string> {
+    const userToUpdate = await this.userModel.findByPk(userId);
+    await userToUpdate.update(data);
+
+    if (data.hobbies) {
+      await userToUpdate.$set('hobbies', data.hobbies);
+    }
+    return 'user update';
   }
 }
