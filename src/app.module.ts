@@ -17,12 +17,14 @@ import { Hobby } from './module/hobbies/hobbies.model';
 import { EventHobby } from './module/events-hobbies/events_hobbies.model';
 import { Event } from './module/events/events.model';
 import { Administrator } from './module/admin/admin.model';
+import { AuthModule } from './module/auth/auth.module';
 
 
 @Module({
   imports: [
     UsersModule,
     DbModule,
+    AuthModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
@@ -42,6 +44,9 @@ import { Administrator } from './module/admin/admin.model';
       ],
       autoLoadModels: true,
       synchronize: true,
+      query: {
+        logging: false,
+      },
     }),
   ],
   controllers: [

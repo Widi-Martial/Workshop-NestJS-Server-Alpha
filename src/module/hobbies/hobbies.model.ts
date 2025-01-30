@@ -4,6 +4,7 @@ import {
   CreatedAt,
   DataType,
   Model,
+  PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
@@ -19,6 +20,10 @@ export class Hobby extends Model {
 
   @BelongsToMany(() => Event, () => EventHobby)
   events: Event[];
+
+  @PrimaryKey
+  @Column({ type: DataType.INTEGER })
+  id: number;
 
   @Column({
     type: DataType.STRING(255),

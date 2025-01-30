@@ -1,22 +1,24 @@
 import { Injectable } from '@nestjs/common';
-//import { DbService } from '../../database/db.service';
-import { Profil, Users } from '../user.interface';
+import { Profil, Suggestion, Users } from '../user.interface';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users.model';
 import { UpdateMeDto } from '../users.dto';
+import { Hobby } from '../../hobbies/hobbies.model';
+import { UserHobby } from '../../users-hobbies/users_hobbies.model';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
     private readonly userModel: typeof User,
-    //private readonly dbService: DbService,
   ) {}
 
-  // private readonly users: Users[] = [];
-
   async getUsers(): Promise<Users[]> {
-    return await this.userModel.findAll();
+    return await this.userModel.findAll({ limit: 20 });
+  }
+
+  async getUser(email: string): Promise<User> {
+    return this.userModel.findOne({ where: { email: email } });
   }
 
   async getUserById(userId: number): Promise<Users> {
@@ -48,12 +50,24 @@ export class UsersService {
     });
   }
 
-  async getSuggestions(): Promise<any> {
-    return 'suggestions';
+  async getSuggestions(userId: number): Promise<Suggestion[]> {
+    const userHobbiesId: number[] = (
+      await UserHobby.findAll({
+        where: { user_id: userId },
+        attributes: ['hobby_id'],
+      })
+    ).map((hobby) => {
+      return hobby.hobby_id;
+    });
+
+    return await this.userModel.findAll({
+      include: [{ model: Hobby, where: { id: userHobbiesId } }],
+      limit: 20,
+    });
   }
 
   async updateProfile(userId: number, data: UpdateMeDto): Promise<string> {
-    const userToUpdate = await this.userModel.findByPk(userId);
+    const userToUpdate: User = await this.userModel.findByPk(userId);
     await userToUpdate.update(data);
 
     if (data.hobbies) {

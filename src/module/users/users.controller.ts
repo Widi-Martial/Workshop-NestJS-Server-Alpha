@@ -11,6 +11,7 @@ import * as usersDto from './users.dto';
 import * as userInterface from './user.interface';
 import { UsersService } from './users-service/users.service';
 
+
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -40,12 +41,13 @@ export class UsersController {
     return await this.usersService.updateProfile(2, updateUserDto);
   }
 
+
   @Get('me/suggestions')
   async findSuggestions(
     @Headers('authorization') authorization: string,
-  ) /*: Promise<userInterface.Suggestion[]>*/ {
+  ): Promise<userInterface.Suggestion[]> {
     console.log(authorization);
-    return this.usersService.getSuggestions();
+    return await this.usersService.getSuggestions(2);
   }
 
   @Get(':userId')

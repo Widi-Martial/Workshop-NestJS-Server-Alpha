@@ -1,13 +1,21 @@
-import { Controller, Body } from '@nestjs/common';
-import { LoginDto } from './auth.dto';
+import { Controller, Request, Post, UseGuards } from '@nestjs/common';
+//import { LoginDto } from './auth.dto';
+import { LocalAuthGuard } from './local-auth-guard';
+import { AuthService } from './auth-service/auth.service';
 
-@Controller('login')
+@Controller()
 export class LoginController {
-  async loginUser(@Body() body: LoginDto) {
-    console.log(body);
-    return 'this action create an account';
+  constructor(private authService: AuthService) {}
+
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async loginUser(@Request() req: any) {
+    return await this.authService.login(req.user);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('logout')
+  async logout(@Request() req: any) {
+    return req.logout(() => console.log('logged out'));
   }
 }
-
-@Controller('logout')
-export class LogoutController {}

@@ -17,10 +17,10 @@ import { UserEvent } from '../users-events/users_events.model';
 
 @Table({ tableName: 'users' })
 export class User extends Model {
-  @HasMany(() => Message, 'sender_id')
+  @HasMany((): typeof Message => Message, 'sender_id')
   sender: Message[];
 
-  @HasMany(() => Message, 'receiver_id')
+  @HasMany((): typeof Message => Message, 'receiver_id')
   receiver: Message[];
 
   @BelongsToMany(() => Hobby, () => UserHobby)

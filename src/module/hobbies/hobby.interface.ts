@@ -1,4 +1,4 @@
-export interface Hobby {
+export interface HobbyInterface {
   id: number;
   name: string;
 }

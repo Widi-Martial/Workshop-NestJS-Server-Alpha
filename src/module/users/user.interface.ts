@@ -77,11 +77,9 @@ export interface Users {
 }
 
 export interface Suggestion {
-  id: number;
   name: string;
-  gender: string;
   birth_date: string;
-  age: number;
+  gender: string;
   picture: string;
 }
 
