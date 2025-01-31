@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Profil, Suggestion, Users } from '../user.interface';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users.model';
@@ -17,12 +17,34 @@ export class UsersService {
     return await this.userModel.findAll({ limit: 20 });
   }
 
-  async getUser(email: string): Promise<User> {
-    return this.userModel.findOne({ where: { email: email } });
+  async getUser(email: string, pass: string): Promise<Users> {
+    const user = await this.userModel.findOne({ where: { email: email } });
+    if (!user) {
+      throw new UnauthorizedException({ message: 'Invalid email or password' });
+    }
+    if (user.status === 'banned') {
+      throw new UnauthorizedException({ message: 'Your account is banned' });
+    }
+    // add compare hash
+    if (user.password !== pass) {
+      throw new UnauthorizedException({ message: 'Invalid email or password' });
+    }
+    return user.toJSON();
   }
 
   async getUserById(userId: number): Promise<Users> {
-    return await this.userModel.findByPk(userId);
+    const user = await this.userModel.findByPk(userId, {
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+    if (!user) {
+      throw new UnauthorizedException({ message: 'Your account is deleted' });
+    }
+    if (user.status === 'banned') {
+      throw new UnauthorizedException({ message: 'Your account is banned' });
+    }
+    return user.toJSON();
   }
 
   async getUserProfile(userId: number): Promise<Profil> {

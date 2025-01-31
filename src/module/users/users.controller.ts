@@ -6,12 +6,14 @@ import {
   Patch,
   Headers,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import * as usersDto from './users.dto';
 import * as userInterface from './user.interface';
 import { UsersService } from './users-service/users.service';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 
-
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -41,12 +43,8 @@ export class UsersController {
     return await this.usersService.updateProfile(2, updateUserDto);
   }
 
-
   @Get('me/suggestions')
-  async findSuggestions(
-    @Headers('authorization') authorization: string,
-  ): Promise<userInterface.Suggestion[]> {
-    console.log(authorization);
+  async findSuggestions(): Promise<userInterface.Suggestion[]> {
     return await this.usersService.getSuggestions(2);
   }
 
