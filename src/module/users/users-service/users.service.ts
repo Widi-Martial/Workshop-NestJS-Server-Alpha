@@ -97,4 +97,23 @@ export class UsersService {
     }
     return 'user update';
   }
+
+  async getAllContacts(userId: number): Promise<Users[]> {
+    const contacts = await this.userModel.findAll({
+      limit: 10,
+      include: [
+        {
+          association: 'sender',
+          where: { receiver_id: userId },
+        },
+        {
+          association: 'receiver',
+          where: { sender_id: userId },
+        },
+      ],
+    });
+    console.log(contacts);
+
+    return contacts;
+  }
 }

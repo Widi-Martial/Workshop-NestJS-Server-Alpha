@@ -48,6 +48,14 @@ export class UsersController {
     return await this.usersService.getSuggestions(2);
   }
 
+  @Get('contacts')
+  async findAllContacts(
+    @Headers('authorization') authorization: string,
+  ): Promise<userInterface.Users[]> {
+    console.log(authorization);
+    return await this.usersService.getAllContacts(84);
+  }
+
   @Get(':userId')
   async findOneUser(
     @Headers('authorization') authorization: string,

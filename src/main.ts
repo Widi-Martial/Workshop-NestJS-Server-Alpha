@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     abortOnError: false,
@@ -22,6 +21,8 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
   app.use(helmet());
-  await app.listen(process.env.PORT ?? 4000);
+  await app.listen(process.env.PORT ?? 4000, function () {
+    console.log('Welcome to Atelier NestJs App Service !');
+  });
 }
 bootstrap().then(() => console.log('Server started'));

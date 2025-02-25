@@ -1,23 +1,28 @@
-import { Body, Controller, Get, Post, Put, Headers } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Headers,
+  UseGuards,
+} from '@nestjs/common';
 import * as messageDto from './messages.dto';
 import * as messageInterface from './message.interface';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { MessagesService } from './messages-service/messages.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('messages')
 export class MessagesController {
+  constructor(private messagesService: MessagesService) {}
+
   @Get()
   async findAllMessages(
     @Headers('authorization') authorization: string,
-  ): Promise<messageInterface.Message[]> {
+  ): Promise<messageInterface.Messages[]> {
     console.log(authorization);
-    return [];
-  }
-
-  @Get('contacts')
-  async findAllContacts(
-    @Headers('authorization') authorization: string,
-  ): Promise<messageInterface.Contact[]> {
-    console.log(authorization);
-    return [];
+    return await this.messagesService.getMessages();
   }
 
   @Post()

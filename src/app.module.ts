@@ -18,11 +18,12 @@ import { EventHobby } from './module/events-hobbies/events_hobbies.model';
 import { Event } from './module/events/events.model';
 import { Administrator } from './module/admin/admin.model';
 import { AuthModule } from './module/auth/auth.module';
-
+import { MessagesModule } from './module/messages/messages.module';
 
 @Module({
   imports: [
     UsersModule,
+    MessagesModule,
     DbModule,
     AuthModule,
     SequelizeModule.forRoot({
