@@ -4,22 +4,26 @@ import {
   Delete,
   HttpCode,
   Post,
-  Headers,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { CreateAccountDto } from './account.dto';
+import { AccountService } from './account-service/account.service';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 
 @Controller('account')
 export class AccountController {
-  @Post('signUp')
-  async createAccount(@Body() createMeDto: CreateAccountDto) {
-    console.log(createMeDto);
-    return 'this action create user';
+  constructor(private readonly accountService: AccountService) {}
+
+  @Post('signup')
+  async createAccount(@Body() createMeDto: CreateAccountDto): Promise<string> {
+    return await this.accountService.createAccount(createMeDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('delete')
   @HttpCode(204)
-  async deleteAccount(@Headers('authorization') authorization: string) {
-    console.log(authorization);
-    return 'this action delete user';
+  async deleteAccount(@Req() req) {
+    return await this.accountService.deleteAccount(req.user.userId);
   }
 }

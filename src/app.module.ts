@@ -19,6 +19,7 @@ import { Event } from './module/events/events.model';
 import { Administrator } from './module/admin/admin.model';
 import { AuthModule } from './module/auth/auth.module';
 import { MessagesModule } from './module/messages/messages.module';
+import { AccountModule } from './module/account/account.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MessagesModule } from './module/messages/messages.module';
     MessagesModule,
     DbModule,
     AuthModule,
+    AccountModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
@@ -56,7 +58,6 @@ import { MessagesModule } from './module/messages/messages.module';
     LoginController,
     MessagesController,
     AdminController,
-    AccountController,
   ],
 })
 export class AppModule {}

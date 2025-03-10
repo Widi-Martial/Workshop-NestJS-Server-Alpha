@@ -6,7 +6,8 @@ import {
   Put,
   Headers,
   UseGuards,
-} from '@nestjs/common';
+  Req, HttpCode
+} from "@nestjs/common";
 import * as messageDto from './messages.dto';
 import * as messageInterface from './message.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
@@ -25,21 +26,26 @@ export class MessagesController {
     return await this.messagesService.getMessages();
   }
 
-  @Post()
+  @Post('send')
   async sendMessage(
-    @Headers('authorization') authorization: string,
+    @Req() req,
     @Body() sendMessageDto: messageDto.SendMessageDto,
-  ) {
-    console.log(authorization, sendMessageDto);
-    return 'this action send a message';
+  ): Promise<string> {
+    return await this.messagesService.sendMessage(
+      req.user.userId,
+      sendMessageDto,
+    );
   }
 
-  @Put()
+  @Put('read')
+  @HttpCode(204)
   async putMessageToRead(
-    @Headers('authorization') authorization: string,
+    @Req() req,
     @Body() contactId: messageDto.PutReadDto,
-  ) {
-    console.log(authorization, contactId);
-    return 'this action put message to read';
+  ): Promise<string> {
+    return await this.messagesService.setMessageToRead({
+      to: req.user.userId,
+      from: contactId.contactId,
+    });
   }
 }

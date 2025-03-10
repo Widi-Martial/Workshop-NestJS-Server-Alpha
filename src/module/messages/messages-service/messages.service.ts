@@ -13,4 +13,34 @@ export class MessagesService {
   async getMessages(): Promise<Messages[]> {
     return await this.messageModel.findAll({ limit: 20 });
   }
+
+  async sendMessage(from: number, bodyMessage): Promise<string> {
+    const { receiver_id: to, message } = bodyMessage;
+    const send = await this.messageModel.create(
+      {
+        message,
+        sender_id: from,
+        receiver_id: to,
+      },
+      { returning: true },
+    );
+
+    console.log(send);
+    return 'Message sent';
+  }
+
+  async setMessageToRead({
+    to,
+    from,
+  }: {
+    to: number;
+    from: number;
+  }): Promise<string> {
+    //console.log(from, to);
+    await this.messageModel.update(
+      { read: true },
+      { where: { receiver_id: to, sender_id: from } },
+    );
+    return 'message read';
+  }
 }

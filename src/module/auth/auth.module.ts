@@ -6,9 +6,11 @@ import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { HashModule } from '../hash/hash.module';
 
 @Module({
   imports: [
+    HashModule,
     UsersModule,
     PassportModule,
     JwtModule.register({

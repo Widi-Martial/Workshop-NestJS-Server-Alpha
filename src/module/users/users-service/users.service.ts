@@ -17,17 +17,13 @@ export class UsersService {
     return await this.userModel.findAll({ limit: 20 });
   }
 
-  async getUser(email: string, pass: string): Promise<Users> {
+  async getUser(email: string): Promise<Users> {
     const user = await this.userModel.findOne({ where: { email: email } });
     if (!user) {
       throw new UnauthorizedException({ message: 'Invalid email or password' });
     }
     if (user.status === 'banned') {
       throw new UnauthorizedException({ message: 'Your account is banned' });
-    }
-    // add compare hash
-    if (user.password !== pass) {
-      throw new UnauthorizedException({ message: 'Invalid email or password' });
     }
     return user.toJSON();
   }

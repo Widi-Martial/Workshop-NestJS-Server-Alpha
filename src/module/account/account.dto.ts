@@ -5,12 +5,13 @@ import {
   IsEmail,
   IsArray,
   ArrayNotEmpty,
-  Contains,
-  IsDate,
   Min,
   MaxLength,
   MinLength,
+  IsIn,
+  IsDateString,
 } from 'class-validator';
+import { Match } from '../../common/Match';
 
 export class CreateAccountDto {
   @IsNotEmpty()
@@ -19,7 +20,7 @@ export class CreateAccountDto {
   name: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   birth_date: string;
 
   @IsString()
@@ -28,9 +29,7 @@ export class CreateAccountDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(10)
-  @Contains('male')
-  @Contains('female')
-  @Contains('other')
+  @IsIn(['male', 'female', 'other'])
   gender: string;
 
   @IsNotEmpty()
@@ -38,18 +37,17 @@ export class CreateAccountDto {
   @IsEmail()
   email: string;
 
-  // after:check with zod
   @IsNotEmpty()
   @IsString()
   @MinLength(12)
   @MaxLength(255)
   password: string;
 
-  // after:check with zod
   @IsNotEmpty()
   @IsString()
   @MinLength(12)
   @MaxLength(255)
+  @Match<CreateAccountDto>('password')
   repeat_password: string;
 
   @IsArray()
