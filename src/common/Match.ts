@@ -9,14 +9,14 @@ import {
 
 export const Match =
   <T>(property: keyof T, options?: ValidationOptions) =>
-    (object: any, propertyName: string) =>
+(object: any, propertyName: string) =>
     registerDecorator({
       target: object.constructor,
-        propertyName,
+      propertyName,
       options,
-        constraints: [property],
+      constraints: [property],
       validator: MatchConstraint,
-      });
+    });
 
 @ValidatorConstraint({ name: 'Match' })
 export class MatchConstraint implements ValidatorConstraintInterface {
@@ -25,10 +25,8 @@ export class MatchConstraint implements ValidatorConstraintInterface {
     const propertyValue = (args?.object as any)[propertyNameToCompare];
     return equals(value, propertyValue);
   }
-
   defaultMessage(args?: ValidationArguments): string {
     const [propertyNameToCompare] = args?.constraints || [];
-
     return `${args?.property} does not match the ${propertyNameToCompare}`;
   }
 }

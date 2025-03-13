@@ -98,20 +98,3 @@ export interface User {
   hobbies: Hobby[];
   events: Event[];
 }
-
-/*export interface Contact {
-  id: number;
-  name: string;
-  birth_date: string;
-  description: string;
-  gender: string;
-  picture: string;
-  picture_id: string;
-  email: string;
-  password: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
-  sender: Messages[];
-  receiver: Messages[];
-}*/

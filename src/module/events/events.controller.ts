@@ -1,35 +1,48 @@
-import { Controller, Delete, Get, Param, Put, Headers } from '@nestjs/common';
-import { EventIdDto } from './events.dto';
-import { EventDto } from './event.interface';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Headers,
+  UseGuards,
+  Post,
+  Request,
+} from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { EventsService } from './events-service/events.service';
+import { Event } from './events.model';
 
 @Controller('events')
 export class EventsController {
+  constructor(private readonly eventsService: EventsService) {}
+
   @Get()
-  async findAllEvents(): Promise<EventDto[]> {
-    return [];
+  async findAllEvents(): Promise<Event[]> {
+    return await this.eventsService.getAllEvents();
   }
 
   @Get(':eventId')
-  async findOneEvent(@Param('eventId') eventId: number): Promise<EventDto> {
-    console.log(eventId);
-    return null;
+  async findOneEvent(
+    @Param('eventId') eventId: number,
+  ): Promise<Event> {
+    return this.eventsService.getEventById(eventId);
   }
 
-  @Put(':eventId/register')
+  @UseGuards(JwtAuthGuard)
+  @Post(':eventId/register')
   async addUserToEvent(
-    @Param('eventId') eventId: EventIdDto,
-    @Headers('authorization') authorization: string,
-  ) {
-    console.log(eventId, authorization);
-    return 'this action register user';
+    @Request() req: any,
+    @Param('eventId') eventId: number,
+  ): Promise<string> {
+    return await this.eventsService.register(eventId, req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':eventId/unregister')
   async deleteUserToEvent(
-    @Param('eventId') eventId: EventIdDto,
-    @Headers('authorization') authorization: string,
-  ) {
-    console.log(eventId, authorization);
-    return 'this action unregister user';
+    @Param('eventId') eventId: number,
+    @Request() req: any,
+  ): Promise<string> {
+    return await this.eventsService.unregister(eventId, req.user.userId);
   }
 }

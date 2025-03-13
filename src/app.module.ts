@@ -1,11 +1,5 @@
 import 'dotenv/config';
 import { Module } from '@nestjs/common';
-import { EventsController } from './module/events/events.controller';
-import { HobbiesController } from './module/hobbies/hobbies.controller';
-import { LoginController } from './module/auth/auth.controller';
-import { MessagesController } from './module/messages/messages.controller';
-import { AdminController } from './module/admin/admin.controller';
-import { AccountController } from './module/account/account.controller';
 import { UsersModule } from './module/users/users.module';
 import { DbModule } from './module/database/db.module';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -20,6 +14,7 @@ import { Administrator } from './module/admin/admin.model';
 import { AuthModule } from './module/auth/auth.module';
 import { MessagesModule } from './module/messages/messages.module';
 import { AccountModule } from './module/account/account.module';
+import { EventsModule } from './module/events/events.module';
 
 @Module({
   imports: [
@@ -28,6 +23,7 @@ import { AccountModule } from './module/account/account.module';
     DbModule,
     AuthModule,
     AccountModule,
+    EventsModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
@@ -52,12 +48,11 @@ import { AccountModule } from './module/account/account.module';
       },
     }),
   ],
-  controllers: [
-    EventsController,
+  /*controllers: [
     HobbiesController,
     LoginController,
     MessagesController,
     AdminController,
-  ],
+  ],*/
 })
 export class AppModule {}

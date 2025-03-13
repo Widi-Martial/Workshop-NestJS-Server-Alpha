@@ -3,11 +3,12 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Headers,
   UseGuards,
-  Req, HttpCode
-} from "@nestjs/common";
+  Req,
+  HttpCode,
+  Patch,
+} from '@nestjs/common';
 import * as messageDto from './messages.dto';
 import * as messageInterface from './message.interface';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
@@ -37,7 +38,7 @@ export class MessagesController {
     );
   }
 
-  @Put('read')
+  @Patch('read')
   @HttpCode(204)
   async putMessageToRead(
     @Req() req,

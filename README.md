@@ -35,6 +35,7 @@ $ pnpm run test:cov
 ```
 
 ## OnGoing
-- Modules (Dynamic modules)
+- Exception filters
 - Recipes(passport(Customize Passport))
 - Techniques(database>Testing)
+- modifier le controlleur user avec les valeurs de req.user

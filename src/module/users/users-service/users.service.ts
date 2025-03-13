@@ -13,11 +13,11 @@ export class UsersService {
     private readonly userModel: typeof User,
   ) {}
 
-  async getUsers(): Promise<Users[]> {
+  async getUsers(): Promise<User[]> {
     return await this.userModel.findAll({ limit: 20 });
   }
 
-  async getUser(email: string): Promise<Users> {
+  async getUser(email: string): Promise<User> {
     const user = await this.userModel.findOne({ where: { email: email } });
     if (!user) {
       throw new UnauthorizedException({ message: 'Invalid email or password' });
@@ -25,10 +25,11 @@ export class UsersService {
     if (user.status === 'banned') {
       throw new UnauthorizedException({ message: 'Your account is banned' });
     }
+
     return user.toJSON();
   }
 
-  async getUserById(userId: number): Promise<Users> {
+  async getUserById(userId: number): Promise<User> {
     const user = await this.userModel.findByPk(userId, {
       attributes: {
         exclude: ['password'],
