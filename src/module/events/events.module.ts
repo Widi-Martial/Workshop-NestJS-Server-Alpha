@@ -9,6 +9,6 @@ import { UsersModule } from '../users/users.module';
   imports: [UsersModule, SequelizeModule.forFeature([Event])],
   providers: [EventsService],
   controllers: [EventsController],
-  exports: [EventsService],
+  exports: [EventsService, SequelizeModule],
 })
 export class EventsModule {}

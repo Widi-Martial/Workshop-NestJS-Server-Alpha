@@ -34,11 +34,14 @@ export class AccountService {
           },
           transactionHost,
         );
-        await createUser.$add(
-          'hobbies',
-          createAccountDto.hobbies,
-          transactionHost,
-        );
+
+        if (createAccountDto.hobbies) {
+          await createUser.$add(
+            'hobbies',
+            createAccountDto.hobbies,
+            transactionHost,
+          );
+        }
       });
       return 'account created successfully.';
     } catch (err) {

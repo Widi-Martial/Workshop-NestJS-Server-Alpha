@@ -15,9 +15,11 @@ import { AuthModule } from './module/auth/auth.module';
 import { MessagesModule } from './module/messages/messages.module';
 import { AccountModule } from './module/account/account.module';
 import { EventsModule } from './module/events/events.module';
+import { AdminModule } from './module/admin/admin.module';
 
 @Module({
   imports: [
+    AdminModule,
     UsersModule,
     MessagesModule,
     DbModule,

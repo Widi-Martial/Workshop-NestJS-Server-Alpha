@@ -36,7 +36,6 @@ export class MessagesService {
     to: number;
     from: number;
   }): Promise<string> {
-    //console.log(from, to);
     await this.messageModel.update(
       { read: true },
       { where: { receiver_id: to, sender_id: from } },

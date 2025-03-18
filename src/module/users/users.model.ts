@@ -76,6 +76,9 @@ export class User extends Model {
   })
   status: string;
 
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  isadmin: boolean;
+
   @CreatedAt
   created_at: Date;
 

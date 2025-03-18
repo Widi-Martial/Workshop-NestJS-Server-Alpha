@@ -3,7 +3,6 @@ import {
   Delete,
   Get,
   Param,
-  Headers,
   UseGuards,
   Post,
   Request,

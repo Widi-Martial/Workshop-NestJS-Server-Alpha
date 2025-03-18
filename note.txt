@@ -1,0 +1,14 @@
+{
+	"email": "admin@gmail.com",
+  "password": "alliance@589635"
+}
+
+{
+    "email":"bobo@gmail.com",
+  "password":"azerty123alliance"
+}
+
+mettre en place la déconnexion
+ajouté les routes pour le hobbies
+gestion des erreurs (try catch)
+essayer d'implémenter le caching(sauvegarde provisoire)

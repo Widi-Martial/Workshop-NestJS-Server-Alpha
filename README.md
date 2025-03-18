@@ -38,4 +38,3 @@ $ pnpm run test:cov
 - Exception filters
 - Recipes(passport(Customize Passport))
 - Techniques(database>Testing)
-- modifier le controlleur user avec les valeurs de req.user
