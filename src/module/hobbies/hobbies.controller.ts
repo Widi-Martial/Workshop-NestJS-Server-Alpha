@@ -1,10 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { HobbyInterface } from './hobby.interface';
+import { Hobby } from './hobbies.model';
+import { HobbiesService } from './hobbies-service/hobbies.service';
 
 @Controller('hobbies')
 export class HobbiesController {
+  constructor(private readonly hobbyService: HobbiesService) {}
+
   @Get()
-  async findAllHobbies(): Promise<HobbyInterface[]> {
-    return [];
+  async findAllHobbies(): Promise<Hobby[]> {
+    return this.hobbyService.getAllHobby();
   }
 }

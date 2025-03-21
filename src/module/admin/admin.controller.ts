@@ -18,26 +18,25 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Post('event')
-  async createEvent(@Body() body: Event): Promise<string> {
-    console.log(body);
-    return 'this create event';
+  async createEvent(@Body() body: typeof Event): Promise<string> {
+    return this.adminService.createEvent(body);
   }
 
   @Patch('event/:id')
-  async updateEvent(@Param('id') eventId: number): Promise<string> {
-    console.log(eventId);
-    return 'this update event';
+  async updateEvent(
+    @Param('id') eventId: number,
+    @Body() body: typeof Event,
+  ): Promise<string> {
+    return this.adminService.updateEvent(eventId, body);
   }
 
   @Delete('event/:id')
   async deleteEvent(@Param('id') eventId: number): Promise<string> {
-    console.log(eventId);
-    return 'this deleted event';
+    return this.adminService.deleteEvent(eventId);
   }
 
   @Delete('user/:id')
   async deleteUser(@Param('id') userId: number): Promise<string> {
-    console.log(userId);
-    return 'this deleted event';
+    return this.adminService.deleteUser(userId);
   }
 }

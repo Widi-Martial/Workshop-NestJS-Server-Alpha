@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { Profil, Suggestion, Users } from '../user.interface';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users.model';
@@ -26,7 +26,7 @@ export class UsersService {
       throw new UnauthorizedException({ message: 'Your account is banned' });
     }
 
-    return user.toJSON();
+    return user;
   }
 
   async getUserById(userId: number): Promise<User> {
@@ -35,17 +35,14 @@ export class UsersService {
         exclude: ['password'],
       },
     });
-    if (!user) {
-      throw new UnauthorizedException({ message: 'Your account is deleted' });
-    }
-    if (user.status === 'banned') {
-      throw new UnauthorizedException({ message: 'Your account is banned' });
+    if (!user || user.status === 'banned') {
+      throw new NotFoundException({ message: 'This user doesnt exist' });
     }
     return user.toJSON();
   }
 
   async getUserProfile(userId: number): Promise<Profil> {
-    return await this.userModel.findByPk(userId, {
+    const profile = await this.userModel.findByPk(userId, {
       attributes: [
         'id',
         'name',
@@ -67,6 +64,11 @@ export class UsersService {
         },
       ],
     });
+
+    if (!profile) {
+      throw new NotFoundException({ message: 'Invalid profile ' });
+    }
+    return profile;
   }
 
   async getSuggestions(userId: number): Promise<Suggestion[]> {
@@ -87,6 +89,9 @@ export class UsersService {
 
   async updateProfile(userId: number, data: UpdateMeDto): Promise<string> {
     const userToUpdate: User = await this.userModel.findByPk(userId);
+    if (!userToUpdate) {
+      throw new NotFoundException({ message: 'User not found' });
+    }
     await userToUpdate.update(data);
 
     if (data.hobbies) {

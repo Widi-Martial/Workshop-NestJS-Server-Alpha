@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Event } from '../events.model';
 import { User } from '../../users/users.model';
@@ -24,8 +24,9 @@ export class EventsService {
   async register(eventId: number, userId: number): Promise<string> {
     const user: User = this.userModel.build({ id: userId });
     const event = await Event.findByPk(eventId);
-    if (!event) return 'Event not found';
-
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
     await user.$add('event', eventId);
     return 'User subscribe to event';
   }
@@ -33,7 +34,9 @@ export class EventsService {
   async unregister(eventId: number, userId: number): Promise<string> {
     const user: User = this.userModel.build({ id: userId });
     const event = await Event.findByPk(eventId);
-    if (!event) return 'Event not found';
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
 
     await user.$remove('event', eventId);
     return 'User unsubscribe to event';
